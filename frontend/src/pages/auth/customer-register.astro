@@ -1,0 +1,309 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="PointzNest - Customer Registration">
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-star"></i>
+                <span>PointzNest</span>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#"
+                            ><i class="fas fa-user-plus"></i> New Customer Registration</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="registration-section">
+        <div class="container">
+            <div class="registration-container">
+                <h2>Create Your Account</h2>
+                <form id="registration-form">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            required
+                            placeholder="Enter username"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="Enter email address"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            required
+                            placeholder="Your phone number"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                            placeholder="Create a password"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="confirm-password"
+                            name="confirm-password"
+                            required
+                            placeholder="Confirm your password"
+                        />
+                    </div>
+
+                    <div
+                        id="error-message"
+                        style="color: red; text-align: center; margin-bottom: 1rem;"
+                    >
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Sign Up
+                        </button>
+                    </div>
+
+                    <div class="login-link">
+                        Already have an account? <a href="/auth/customer-login"
+                            >Sign In</a
+                        >
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    /* Scoped Styles */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .logo i {
+        margin-right: 10px;
+        color: var(--secondary);
+        animation: sparkle 2s infinite;
+    }
+    @keyframes sparkle {
+        0% {
+            text-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            transform: scale(1);
+        }
+        50% {
+            text-shadow:
+                0 0 20px rgba(230, 126, 34, 0.9),
+                0 0 30px rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+        100% {
+            text-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            transform: scale(1);
+        }
+    }
+
+    .btn {
+        padding: 0.7rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+    }
+    .btn-primary {
+        background-color: var(--secondary);
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: #d35400;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .registration-section {
+        background:
+            linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)),
+            url("https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        min-height: 80vh;
+    }
+    .registration-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        padding: 2.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .registration-container h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: white;
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333 !important;
+    }
+    .form-footer {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .form-footer .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+    .login-link {
+        margin-top: 1.5rem;
+        color: #ddd;
+        font-size: 1.1rem;
+    }
+    .login-link a {
+        color: var(--secondary);
+        text-decoration: none;
+        font-weight: 500;
+    }
+</style>
+
+<script>
+    const form = document.getElementById("registration-form");
+    const errorDisplay = document.getElementById("error-message");
+
+    if (form) {
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const username = (
+                document.getElementById("username") as HTMLInputElement
+            ).value;
+            const email = (document.getElementById("email") as HTMLInputElement)
+                .value;
+            const phone = (document.getElementById("phone") as HTMLInputElement)
+                .value;
+            const password = (
+                document.getElementById("password") as HTMLInputElement
+            ).value;
+            const confirmPassword = (
+                document.getElementById("confirm-password") as HTMLInputElement
+            ).value;
+
+            if (password !== confirmPassword) {
+                if (errorDisplay)
+                    errorDisplay.textContent = "Passwords do not match!";
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    "http://localhost:3000/api/auth/register",
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            username,
+                            email,
+                            phone,
+                            password,
+                        }),
+                    },
+                );
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Registration successful! You can now login.");
+                    window.location.href = "/auth/customer-login";
+                } else {
+                    if (errorDisplay)
+                        errorDisplay.textContent =
+                            data.error || "Registration failed";
+                }
+            } catch (err) {
+                console.error(err);
+                if (errorDisplay)
+                    errorDisplay.textContent =
+                        "Server error. Please try again.";
+            }
+        });
+    }
+</script>

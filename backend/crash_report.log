@@ -1,0 +1,308 @@
+UNCAUGHT EXCEPTION: TSError: ⨯ Unable to compile TypeScript:
+src/routes/auth.ts(4,24): error TS2307: Cannot find module 'nodemailer' or its corresponding type declarations.
+src/routes/auth.ts(5,20): error TS2307: Cannot find module 'twilio' or its corresponding type declarations.
+
+    at createTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+UNCAUGHT EXCEPTION: TSError: ⨯ Unable to compile TypeScript:
+src/routes/auth.ts(4,24): error TS2307: Cannot find module 'nodemailer' or its corresponding type declarations.
+src/routes/auth.ts(5,20): error TS2307: Cannot find module 'twilio' or its corresponding type declarations.
+
+    at createTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+UNCAUGHT EXCEPTION: TSError: ⨯ Unable to compile TypeScript:
+src/routes/auth.ts(19,23): error TS2552: Cannot find name 'nodemailer'. Did you mean 'NodeFilter'?
+src/routes/auth.ts(28,35): error TS2552: Cannot find name 'nodemailer'. Did you mean 'NodeFilter'?
+src/routes/auth.ts(29,23): error TS2552: Cannot find name 'nodemailer'. Did you mean 'NodeFilter'?
+src/routes/auth.ts(44,47): error TS2304: Cannot find name 'twilio'.
+src/routes/auth.ts(139,32): error TS2552: Cannot find name 'nodemailer'. Did you mean 'NodeFilter'?
+
+    at createTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+UNCAUGHT EXCEPTION: TSError: ⨯ Unable to compile TypeScript:
+src/routes/auth.ts(19,23): error TS2552: Cannot find name 'nodemailer'. Did you mean 'NodeFilter'?
+src/routes/auth.ts(28,35): error TS2552: Cannot find name 'nodemailer'. Did you mean 'NodeFilter'?
+src/routes/auth.ts(29,23): error TS2552: Cannot find name 'nodemailer'. Did you mean 'NodeFilter'?
+src/routes/auth.ts(44,47): error TS2304: Cannot find name 'twilio'.
+src/routes/auth.ts(139,32): error TS2552: Cannot find name 'nodemailer'. Did you mean 'NodeFilter'?
+
+    at createTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:72:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:72:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:72:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:72:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:73:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:98:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:114:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: TSError: ⨯ Unable to compile TypeScript:
+src/routes/feedback.ts(53,33): error TS2304: Cannot find name 'Customer'.
+
+    at createTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+UNCAUGHT EXCEPTION: TSError: ⨯ Unable to compile TypeScript:
+src/routes/feedback.ts(53,33): error TS2304: Cannot find name 'Customer'.
+
+    at createTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:114:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (c:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (c:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (c:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (c:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (c:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (c:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (c:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (c:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (c:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (c:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (c:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (c:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+UNCAUGHT EXCEPTION: Error: listen EADDRINUSE: address already in use :::7000
+    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
+    at listenInCluster (node:net:1997:12)
+    at Server.listen (node:net:2102:7)
+    at app.listen (C:\Users\umama\Pointznest\backend\node_modules\express\lib\application.js:635:24)
+    at Object.<anonymous> (C:\Users\umama\Pointznest\backend\src\index.ts:100:5)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Module.m._compile (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1618:23)
+    at node:internal/modules/cjs/loader:1893:10
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\umama\Pointznest\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)

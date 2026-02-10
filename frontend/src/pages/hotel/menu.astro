@@ -1,0 +1,757 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="PointzNest - Hotel Menu">
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h2><i class="fas fa-star"></i> <span>PointzNest</span></h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/hotel/dashboard#dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/hotel/dashboard#add-customer">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Add Customer</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/hotel/dashboard#customer-management">
+                        <i class="fas fa-users"></i>
+                        <span>Customer Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/hotel/dashboard#loyalty-program">
+                        <i class="fas fa-award"></i>
+                        <span>Loyalty Program</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/hotel/dashboard#feedback-ratings">
+                        <i class="fas fa-comment"></i>
+                        <span>Feedback & Ratings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/hotel/dashboard#revenue-reports">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Revenue Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a
+                        href="#"
+                        style="text-decoration: none; color: inherit; display: flex; align-items: center; width: 100%;"
+                    >
+                        <i class="fas fa-utensils"></i>
+                        <span>View Menu</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Hotel Menu Management</h1>
+                <div class="user-info">
+                    <div class="user-avatar">HM</div>
+                    <div>
+                        <div class="user-name">Hotel Manager</div>
+                        <div class="user-role">Owner</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Content -->
+            <div
+                class="dashboard-section"
+                style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);"
+            >
+                <div
+                    class="section-header"
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee;"
+                >
+                    <h2
+                        style="color: var(--primary); display: flex; align-items: center; font-size: 1.5rem;"
+                    >
+                        <i
+                            class="fas fa-utensils"
+                            style="margin-right: 10px; color: var(--secondary);"
+                        ></i> Current Menu
+                    </h2>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus" style="margin-right: 8px;"></i> Add
+                        Item
+                    </button>
+                </div>
+
+                <div class="menu-grid">
+                    <!-- Starters Category -->
+                    <div class="menu-category" data-category="Starters">
+                        <div class="category-header">
+                            <h3>Starters</h3>
+                            <span class="category-badge">0 Items</span>
+                        </div>
+                        <div class="menu-list">
+                            <!-- Items will be loaded here dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Main Course Category -->
+                    <div class="menu-category" data-category="Main Course">
+                        <div class="category-header">
+                            <h3>Main Course</h3>
+                            <span class="category-badge">0 Items</span>
+                        </div>
+                        <div class="menu-list">
+                            <!-- Items will be loaded here dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Desserts & Beverages Category -->
+                    <div
+                        class="menu-category"
+                        data-category="Desserts & Beverages"
+                    >
+                        <div class="category-header">
+                            <h3>Desserts & Beverages</h3>
+                            <span class="category-badge">0 Items</span>
+                        </div>
+                        <div class="menu-list">
+                            <!-- Items will be loaded here dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<!-- Add Item Modal -->
+<div id="addItemModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Menu Item</h2>
+        <form id="addItemForm">
+            <div class="form-group">
+                <label for="itemName">Item Name</label>
+                <input type="text" id="itemName" name="itemName" required />
+            </div>
+            <div class="form-group">
+                <label for="itemDescription">Description</label>
+                <textarea
+                    id="itemDescription"
+                    name="itemDescription"
+                    rows="2"
+                    required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="itemPrice">Price (₹)</label>
+                <input
+                    type="number"
+                    id="itemPrice"
+                    name="itemPrice"
+                    step="0.5"
+                    required
+                />
+            </div>
+            <div class="form-group">
+                <label for="itemCategory">Category</label>
+                <select id="itemCategory" name="itemCategory" required>
+                    <option value="Starters">Starters</option>
+                    <option value="Main Course">Main Course</option>
+                    <option value="Desserts & Beverages"
+                        >Desserts & Beverages</option
+                    >
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;"
+                >Add Item</button
+            >
+        </form>
+    </div>
+</div>
+
+<script>
+    const API_URL = "http://localhost:7000/api/menu";
+
+    // Get hotel data from localStorage
+    const hotelOwnerData = localStorage.getItem("hotelOwner");
+    console.log("DEBUG: hotelOwnerData from localStorage:", hotelOwnerData);
+
+    const hotelOwner = hotelOwnerData ? JSON.parse(hotelOwnerData) : null;
+    const hotelId = hotelOwner?.id;
+    console.log("DEBUG: Extracted hotelId:", hotelId);
+
+    // Initial Load & Auth Check
+    document.addEventListener("DOMContentLoaded", () => {
+        if (!hotelId) {
+            console.error(
+                "FATAL: No hotelId found. User might not be logged in.",
+            );
+            const menuContent = document.querySelector(".dashboard-section");
+            if (menuContent) {
+                menuContent.innerHTML = `
+                    <div style="text-align:center; padding:50px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size:3rem; color:var(--warning); margin-bottom:20px;"></i>
+                        <h2>Session Not Found</h2>
+                        <p>Please log in as a hotel owner to manage your menu.</p>
+                        <a href="/auth/hotel-owner-login" class="btn btn-primary" style="margin-top:20px;">Return to Login</a>
+                    </div>
+                `;
+            }
+            return;
+        }
+        loadMenuItems();
+    });
+
+    async function loadMenuItems() {
+        try {
+            const res = await fetch(`${API_URL}/${hotelId}`);
+            const items = await res.json();
+
+            // Clear all category lists first
+            document
+                .querySelectorAll(".menu-list")
+                .forEach((list) => (list.innerHTML = ""));
+
+            if (items && Array.isArray(items)) {
+                items.forEach((item) => renderMenuItem(item));
+                updateBadges();
+            }
+        } catch (err) {
+            console.error("Error loading menu items:", err);
+        }
+    }
+
+    function renderMenuItem(item) {
+        // Find category container
+        const categoryContainer = document.querySelector(
+            `.menu-category[data-category="${item.category}"] .menu-list`,
+        );
+        if (!categoryContainer) return;
+
+        const isPaused = !item.is_available;
+        const pausedClass = isPaused ? "paused" : "";
+
+        const itemHtml = `
+            <div class="menu-item ${pausedClass}" data-id="${item._id}">
+                <div class="item-left">
+                    <div class="item-details">
+                        <h4>${item.name}</h4>
+                        <p>${item.description}</p>
+                    </div>
+                </div>
+                <div class="item-right">
+                    <div class="item-price">₹${parseFloat(item.price).toFixed(2)}</div>
+                    <div class="item-actions">
+                        <button class="action-btn pause-btn" title="${isPaused ? "Unpause" : "Pause"}">
+                            <i class="fas ${isPaused ? "fa-play" : "fa-pause"}"></i>
+                        </button>
+                        <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        `;
+        categoryContainer.insertAdjacentHTML("beforeend", itemHtml);
+    }
+
+    function updateBadges() {
+        document.querySelectorAll(".menu-category").forEach((cat) => {
+            const count = cat.querySelector(".menu-list").children.length;
+            const badge = cat.querySelector(".category-badge");
+            if (badge) badge.innerText = `${count} Items`;
+        });
+    }
+
+    // Modal Logic
+    const modal = document.getElementById("addItemModal");
+    const btn = document.querySelector(".section-header .btn-primary");
+    const span = document.getElementsByClassName("close")[0];
+
+    if (btn) btn.onclick = () => (modal.style.display = "block");
+    if (span) span.onclick = () => (modal.style.display = "none");
+    window.onclick = (event) => {
+        if (event.target == modal) modal.style.display = "none";
+    };
+
+    // Add Item Form Submit
+    const form = document.getElementById("addItemForm");
+    form.onsubmit = async function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("itemName").value;
+        const description = document.getElementById("itemDescription").value;
+        const price = document.getElementById("itemPrice").value;
+        const category = document.getElementById("itemCategory").value;
+
+        try {
+            const payload = {
+                hotel_id: hotelId,
+                name,
+                description,
+                price,
+                category,
+            };
+            console.log("DEBUG: Sending Add Item Payload:", payload);
+
+            const res = await fetch(`${API_URL}/add`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await res.json();
+            console.log("DEBUG: Add Item Response:", data);
+
+            if (res.ok) {
+                renderMenuItem(data.item);
+                updateBadges();
+                modal.style.display = "none";
+                form.reset();
+            } else {
+                alert(
+                    `Failed to add item. \nStatus: ${res.status}\nError: ${data.error || data.message || "Unknown"}`,
+                );
+            }
+        } catch (err: any) {
+            console.error("Error adding item:", err);
+            alert(
+                `Error connecting to server: ${err?.message || "Unknown error"}\nPlease ensure the backend is running on port 7000.`,
+            );
+        }
+    };
+
+    // Event Delegation for Delete and Pause
+    document.addEventListener("click", async function (event) {
+        const target = event.target;
+
+        // Handle Delete
+        if (target.closest && target.closest(".delete-btn")) {
+            const btn = target.closest(".delete-btn");
+            const item = btn.closest(".menu-item");
+            const id = item.getAttribute("data-id");
+
+            if (confirm("Are you sure you want to delete this item?")) {
+                try {
+                    const res = await fetch(`${API_URL}/delete/${id}`, {
+                        method: "DELETE",
+                    });
+                    if (res.ok) {
+                        item.remove();
+                        updateBadges();
+                    } else {
+                        alert("Failed to delete item");
+                    }
+                } catch (err) {
+                    console.error("Error deleting item:", err);
+                }
+            }
+        }
+
+        // Handle Pause
+        if (target.closest && target.closest(".pause-btn")) {
+            const btn = target.closest(".pause-btn");
+            const item = btn.closest(".menu-item");
+            const id = item.getAttribute("data-id");
+            const isPaused = item.classList.contains("paused");
+
+            try {
+                const res = await fetch(`${API_URL}/update/${id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ is_available: isPaused }), // Toggle logic: if paused, set to available (true)
+                });
+
+                if (res.ok) {
+                    item.classList.toggle("paused");
+                    const icon = btn.querySelector("i");
+                    if (item.classList.contains("paused")) {
+                        icon.classList.remove("fa-pause");
+                        icon.classList.add("fa-play");
+                        btn.title = "Unpause";
+                    } else {
+                        icon.classList.remove("fa-play");
+                        icon.classList.add("fa-pause");
+                        btn.title = "Pause";
+                    }
+                } else {
+                    alert("Failed to update status");
+                }
+            } catch (err) {
+                console.error("Error updating status:", err);
+            }
+        }
+    });
+</script>
+
+<!-- Making styles global to ensure dynamic items get styled correctly -->
+<style is:global>
+    :root {
+        --primary: #2c3e50;
+        --secondary: #e67e22;
+        --accent: #3498db;
+        --light: #ecf0f1;
+        --dark: #2c3e50;
+        --success: #2ecc71;
+        --warning: #f39c12;
+        --danger: #e74c3c;
+    }
+
+    .container {
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+        width: 250px;
+        background-color: var(--primary);
+        color: white;
+        height: 100vh;
+        position: fixed;
+        overflow-y: auto;
+        transition: all 0.3s;
+        z-index: 100;
+    }
+
+    .logo {
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+
+    .logo h2 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+    }
+
+    .logo i {
+        margin-right: 10px;
+        color: var(--secondary);
+    }
+
+    .nav-menu {
+        list-style: none;
+        padding: 20px 0;
+    }
+
+    .nav-item {
+        padding: 15px 20px;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-item i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+        background: rgba(255, 255, 255, 0.1);
+        border-left: 4px solid var(--secondary);
+    }
+
+    .nav-item a {
+        color: inherit;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+        flex: 1;
+        margin-left: 250px;
+        padding: 20px;
+        transition: all 0.3s;
+        background:
+            linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+            url("https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+
+    .header {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header h1 {
+        color: var(--primary);
+        font-size: 1.8rem;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Menu Section Styles */
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+    }
+
+    .menu-category {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .menu-category:hover {
+        transform: translateY(-5px);
+    }
+
+    .category-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #f0f0f0;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    .category-header h3 {
+        color: var(--primary);
+        font-size: 1.3rem;
+        margin: 0;
+    }
+
+    .category-badge {
+        background: #e8f6ef;
+        color: var(--success);
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .menu-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .menu-item:last-child {
+        border-bottom: none;
+    }
+
+    .item-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .item-details h4 {
+        color: var(--dark);
+        margin-bottom: 4px;
+        font-size: 1rem;
+        margin: 0 0 5px 0;
+    }
+
+    .item-details p {
+        color: #7f8c8d;
+        font-size: 0.8rem;
+        margin: 0;
+        line-height: 1.3;
+    }
+
+    .item-price {
+        font-weight: 600;
+        color: var(--secondary);
+        font-size: 1.1rem;
+        min-width: 60px;
+        text-align: right;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-primary {
+        background-color: var(--secondary);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #d35400;
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: var(--dark);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box; /* Ensure padding doesn't affect width */
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .sidebar {
+            width: 70px;
+        }
+
+        .sidebar .logo span,
+        .sidebar .nav-item span {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 70px;
+        }
+    }
+
+    /* Action Buttons */
+    .item-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+    }
+
+    .item-actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    .action-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        color: #95a5a6;
+        transition: color 0.3s;
+    }
+
+    .action-btn:hover {
+        color: var(--secondary);
+    }
+
+    .delete-btn:hover {
+        color: var(--danger);
+    }
+
+    /* Paused State */
+    .menu-item.paused {
+        opacity: 0.6;
+        filter: grayscale(100%);
+        background: #f9f9f9;
+        pointer-events: none; /* Prevent clicks on paused items except actions */
+    }
+
+    .menu-item.paused .item-actions {
+        pointer-events: auto; /* Re-enable clicking actions */
+    }
+</style>

@@ -1,0 +1,431 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="PointzNest - Feedback & Rating">
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-star"></i>
+                <span>PointzNest</span>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/feedback"
+                            ><i class="fas fa-comment"></i>Feedback</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <a href="/" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i> Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="feedback-section">
+        <div class="container">
+            <div class="feedback-container">
+                <h2>Share Your Feedback</h2>
+                <form id="feedback-form">
+                    <div class="form-group">
+                        <label for="hotel">Select Hotel/Restaurant</label>
+                        <select id="hotel" name="hotel" required>
+                            <option value="">Loading hotels...</option>
+                        </select>
+                    </div>
+
+                    <div class="rating-group">
+                        <label for="rating">Overall Rating</label>
+                        <div class="rating-stars">
+                            <span class="star" data-value="1"
+                                ><i class="fas fa-star"></i></span
+                            >
+                            <span class="star" data-value="2"
+                                ><i class="fas fa-star"></i></span
+                            >
+                            <span class="star" data-value="3"
+                                ><i class="fas fa-star"></i></span
+                            >
+                            <span class="star" data-value="4"
+                                ><i class="fas fa-star"></i></span
+                            >
+                            <span class="star" data-value="5"
+                                ><i class="fas fa-star"></i></span
+                            >
+                        </div>
+                        <div class="rating-text" id="rating-text">
+                            Please select a rating
+                        </div>
+                        <input
+                            type="hidden"
+                            id="rating"
+                            name="rating"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comments">Your Feedback</label>
+                        <textarea
+                            id="comments"
+                            name="comments"
+                            required
+                            placeholder="Please share your experience..."
+                        ></textarea>
+                    </div>
+
+                    <div class="form-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit Feedback
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    /* Scoped styles */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .logo i {
+        margin-right: 10px;
+        color: var(--secondary);
+        animation: sparkle 2s infinite;
+    }
+    @keyframes sparkle {
+        0% {
+            text-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            transform: scale(1);
+        }
+        50% {
+            text-shadow:
+                0 0 20px rgba(230, 126, 34, 0.9),
+                0 0 30px rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+        100% {
+            text-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            transform: scale(1);
+        }
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+    }
+    nav ul li {
+        margin-left: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+    nav ul li a:hover {
+        color: var(--secondary);
+    }
+
+    .btn {
+        padding: 0.7rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+    }
+    .btn i {
+        margin-right: 8px;
+    }
+    .btn-primary {
+        background-color: var(--secondary);
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: #d35400;
+        transform: translateY(-2px);
+    }
+    .btn-outline {
+        background-color: transparent;
+        border: 2px solid white;
+        color: white;
+    }
+    .btn-outline:hover {
+        background-color: white;
+        color: var(--primary);
+        transform: translateY(-2px);
+    }
+
+    .feedback-section {
+        background:
+            linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)),
+            url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+        flex-grow: 1;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+    }
+    .feedback-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        padding: 2.5rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    .feedback-container h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: white;
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333 !important;
+    }
+    .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+    .rating-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+    .rating-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .rating-stars {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .star {
+        font-size: 2rem;
+        color: #ddd;
+        cursor: pointer;
+        transition:
+            color 0.2s,
+            transform 0.2s;
+    }
+    .star:hover,
+    .star.active {
+        color: var(--secondary);
+        transform: scale(1.1);
+    }
+    .rating-text {
+        font-size: 0.9rem;
+        color: #ddd;
+        font-style: italic;
+    }
+    .form-footer {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .form-footer .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+</style>
+
+<script>
+    const stars = document.querySelectorAll(".star");
+    const ratingInput = document.getElementById("rating") as HTMLInputElement;
+    const ratingText = document.getElementById("rating-text");
+    const hotelSelect = document.getElementById("hotel") as HTMLSelectElement;
+
+    // Fetch hotels on load
+    async function fetchHotels() {
+        try {
+            const response = await fetch("http://localhost:3000/api/hotels");
+            const hotels = await response.json();
+
+            if (hotelSelect) {
+                hotelSelect.innerHTML =
+                    '<option value="">Select a hotel</option>';
+                hotels.forEach((hotel: any) => {
+                    const option = document.createElement("option");
+                    option.value = hotel._id; // Using MongoDB _id
+                    option.textContent = hotel.name;
+                    hotelSelect.appendChild(option);
+                });
+            }
+        } catch (error) {
+            console.error("Error fetching hotels:", error);
+            if (hotelSelect)
+                hotelSelect.innerHTML =
+                    '<option value="">Error loading hotels</option>';
+        }
+    }
+
+    // Call fetch on load
+    document.addEventListener("DOMContentLoaded", fetchHotels);
+
+    const ratingTexts: { [key: number]: string } = {
+        1: "Poor - Very dissatisfied",
+        2: "Fair - Somewhat dissatisfied",
+        3: "Good - Satisfied",
+        4: "Very Good - Very satisfied",
+        5: "Excellent - Extremely satisfied",
+    };
+
+    let currentRating = 0;
+
+    stars.forEach((star) => {
+        star.addEventListener("click", () => {
+            const value = parseInt(star.getAttribute("data-value")!);
+            currentRating = value;
+            if (ratingInput) ratingInput.value = value.toString();
+
+            stars.forEach((s) => {
+                const starValue = parseInt(s.getAttribute("data-value")!);
+                if (starValue <= value) {
+                    s.classList.add("active");
+                    (s as HTMLElement).style.color = "#e67e22";
+                } else {
+                    s.classList.remove("active");
+                    (s as HTMLElement).style.color = "#ddd";
+                }
+            });
+
+            if (ratingText) ratingText.textContent = ratingTexts[value];
+        });
+
+        star.addEventListener("mouseover", () => {
+            const value = parseInt(star.getAttribute("data-value")!);
+            stars.forEach((s) => {
+                const starValue = parseInt(s.getAttribute("data-value")!);
+                if (starValue <= value) {
+                    (s as HTMLElement).style.color = "#e67e22";
+                } else {
+                    (s as HTMLElement).style.color = "#ddd";
+                }
+            });
+        });
+
+        star.addEventListener("mouseout", () => {
+            stars.forEach((s) => {
+                const starValue = parseInt(s.getAttribute("data-value")!);
+                if (starValue <= currentRating) {
+                    (s as HTMLElement).style.color = "#e67e22";
+                } else {
+                    (s as HTMLElement).style.color = "#ddd";
+                }
+            });
+        });
+    });
+
+    const form = document.getElementById("feedback-form");
+    if (form) {
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const rating = ratingInput.value;
+            const hotelId = hotelSelect.value;
+            const comments = (
+                document.getElementById("comments") as HTMLTextAreaElement
+            ).value;
+
+            if (!rating) {
+                alert("Please select a rating");
+                return;
+            }
+
+            if (!hotelId) {
+                alert("Please select a hotel or restaurant");
+                return;
+            }
+
+            try {
+                // Submit to backend
+                const response = await fetch(
+                    "http://localhost:3000/api/feedback/add",
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            rating: parseInt(rating),
+                            comment: comments,
+                            hotel_id: hotelId,
+                            customer_id: "65a000000000000000000000", // Mock/Placeholder until auth is fully linked
+                        }),
+                    },
+                );
+
+                if (response.ok) {
+                    alert("Thank you for your feedback!");
+                    window.location.href = "/";
+                } else {
+                    const err = await response.json();
+                    alert("Error: " + (err.message || "Failed to submit"));
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Error submitting feedback. Ensure backend is running.");
+            }
+        });
+    }
+</script>

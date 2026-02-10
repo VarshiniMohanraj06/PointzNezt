@@ -1,0 +1,413 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="PointzNest - Customer Dashboard">
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-star"></i>
+                <span>PointzNest</span>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#"
+                            ><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="dashboard-section">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Your Reward Dashboard</h1>
+                <p>Track your points, Give feedback and ratings</p>
+            </div>
+
+            <div class="points-display">
+                <h2>Your Points Balance</h2>
+                <div id="points-value" class="points-value">0</div>
+                <p>
+                    Your rewards journey is moving forward — make the most of
+                    it.
+                </p>
+            </div>
+
+            <div class="dashboard-card">
+                <i class="fas fa-comment"></i>
+                <h3>Give Feedback</h3>
+                <p>Help us enhance your next dining experience</p>
+                <button class="btn btn-primary" id="give-feedback-btn"
+                    >Give Feedback</button
+                >
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Hotel Visit Modal -->
+    <div id="visit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Hotel Visit</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="visit-form">
+                <div class="form-group">
+                    <label for="hotel-name">Hotel Name</label>
+                    <input type="text" id="hotel-name" required />
+                </div>
+                <div class="form-group">
+                    <label for="visit-date">Visit Date</label>
+                    <input type="date" id="visit-date" required />
+                </div>
+                <div class="form-group">
+                    <label for="amount-spent">Amount Spent ($)</label>
+                    <input
+                        type="number"
+                        id="amount-spent"
+                        min="0"
+                        step="0.01"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating (1-5)</label>
+                    <select id="rating" required>
+                        <option value="">Select Rating</option>
+                        <option value="1">1 Star</option>
+                        <option value="2">2 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="5">5 Stars</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="feedback">Feedback (Optional)</label>
+                    <textarea
+                        id="feedback"
+                        placeholder="Share your experience..."></textarea>
+                </div>
+                <div id="points-earned" class="points-earned"></div>
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="width: 100%;">Submit Visit</button
+                >
+            </form>
+        </div>
+    </div>
+
+    <!-- Redeem Points Modal -->
+    <div id="redeem-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Redeem Points</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="redeem-options">
+                <div
+                    class="dashboard-card"
+                    style="background: #f9f9f9; color: #333; margin-bottom: 1rem;"
+                >
+                    <h3>$10 Voucher</h3>
+                    <p>Use at any partner hotel</p>
+                    <p><strong>Cost: 1000 points</strong></p>
+                    <button
+                        class="btn btn-primary redeem-option"
+                        data-cost="1000"
+                        data-reward="$10 Voucher">Redeem</button
+                    >
+                </div>
+                <div
+                    class="dashboard-card"
+                    style="background: #f9f9f9; color: #333; margin-bottom: 1rem;"
+                >
+                    <h3>Free Dessert</h3>
+                    <p>Complimentary dessert on your next visit</p>
+                    <p><strong>Cost: 500 points</strong></p>
+                    <button
+                        class="btn btn-primary redeem-option"
+                        data-cost=""
+                        data-reward="Free Dessert">Redeem</button
+                    >
+                </div>
+                <div
+                    class="dashboard-card"
+                    style="background: #f9f9f9; color: #333; margin-bottom: 1rem;"
+                >
+                    <h3>Room Upgrade</h3>
+                    <p>Upgrade to a better room on your next stay</p>
+                    <p><strong>Cost: 2000 points</strong></p>
+                    <button
+                        class="btn btn-primary redeem-option"
+                        data-cost="2000"
+                        data-reward="Room Upgrade">Redeem</button
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    /* Scoped styles from original HTML */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    header {
+        background-color: var(--primary);
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    .logo i {
+        margin-right: 10px;
+        color: var(--secondary);
+        animation: sparkle 2s infinite;
+    }
+    @keyframes sparkle {
+        0% {
+            text-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            transform: scale(1);
+        }
+        50% {
+            text-shadow:
+                0 0 20px rgba(230, 126, 34, 0.9),
+                0 0 30px rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+        100% {
+            text-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            transform: scale(1);
+        }
+    }
+    nav ul {
+        display: flex;
+        list-style: none;
+    }
+    nav ul li {
+        margin-left: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+    nav ul li a i {
+        margin-right: 10px;
+        font-size: 1.3rem;
+    }
+    nav ul li a:hover {
+        color: var(--secondary);
+    }
+
+    .btn {
+        padding: 0.7rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+    }
+    .btn-primary {
+        background-color: var(--secondary);
+        color: white;
+    }
+    .btn-primary:hover {
+        background-color: #d35400;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .dashboard-section {
+        background:
+            linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.85)),
+            url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+        flex-grow: 1;
+        min-height: 80vh;
+    }
+    .dashboard-header {
+        margin-bottom: 2rem;
+    }
+    .dashboard-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .points-display {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin: 0 auto 2rem;
+        max-width: 400px;
+    }
+    .points-value {
+        font-size: 3rem;
+        font-weight: bold;
+        color: var(--secondary);
+        margin: 0.5rem 0;
+    }
+    .dashboard-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: transform 0.3s;
+        display: inline-block;
+        margin: 1rem;
+        width: 300px;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+    }
+    .dashboard-card i {
+        font-size: 2.5rem;
+        color: var(--secondary);
+        margin-bottom: 1rem;
+    }
+    .dashboard-card h3 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 500px;
+        color: #333;
+    }
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    .modal-header h2 {
+        color: var(--primary);
+    }
+    .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--dark);
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+    .points-earned {
+        text-align: center;
+        margin: 1rem 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--secondary);
+    }
+</style>
+
+<script>
+    // Client-side code
+    let userPoints = 0;
+
+    const pointsValueElement = document.getElementById("points-value");
+    const visitModal = document.getElementById("visit-modal");
+    const redeemModal = document.getElementById("redeem-modal");
+    const closeModalButtons = document.querySelectorAll(".close-modal");
+    const visitForm = document.getElementById("visit-form");
+    // const addVisitBtn = document.getElementById('add-visit-btn'); // Doesn't exist in markup above?
+    const giveFeedbackBtn = document.getElementById("give-feedback-btn"); // Renamed/New
+
+    function updatePointsDisplay() {
+        if (pointsValueElement)
+            pointsValueElement.textContent = userPoints.toLocaleString();
+    }
+
+    if (giveFeedbackBtn) {
+        giveFeedbackBtn.addEventListener("click", () => {
+            window.location.href = "/feedback"; // Changed from feedback.html
+        });
+    }
+
+    // Modal closers
+    closeModalButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            if (visitModal) visitModal.style.display = "none";
+            if (redeemModal) redeemModal.style.display = "none";
+        });
+    });
+
+    window.addEventListener("click", function (e) {
+        if (e.target === visitModal && visitModal) {
+            visitModal.style.display = "none";
+        }
+        if (e.target === redeemModal && redeemModal) {
+            redeemModal.style.display = "none";
+        }
+    });
+
+    // TODO: Add actual API integration for data
+    console.log("Customer Dashboard Loaded");
+</script>
