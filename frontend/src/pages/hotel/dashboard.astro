@@ -15,8 +15,8 @@ import Layout from "../../layouts/Layout.astro";
                     <span>Dashboard</span>
                 </li>
                 <li class="nav-item" data-page="add-customer">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Add Customer</span>
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Bill Generation</span>
                 </li>
                 <li class="nav-item" data-page="customer-management">
                     <i class="fas fa-users"></i>
@@ -81,9 +81,9 @@ import Layout from "../../layouts/Layout.astro";
                             class="stat-card action-card"
                             data-page="add-customer"
                         >
-                            <i class="fas fa-user-plus"></i>
-                            <h3>Add</h3>
-                            <p>New Customer</p>
+                            <i class="fas fa-file-invoice"></i>
+                            <h3>Generate</h3>
+                            <p>Bill</p>
                         </div>
                         <div
                             class="stat-card action-card"
@@ -116,15 +116,6 @@ import Layout from "../../layouts/Layout.astro";
             <!-- Add Customer Page -->
             <div id="add-customer-page" class="page-content">
                 <div class="dashboard-section">
-                    <div class="section-header">
-                        <h2>
-                            <i class="fas fa-user-plus"></i> Add New Customer
-                        </h2>
-                        <button class="btn btn-primary" id="generate-bill-btn">
-                            <i class="fas fa-file-invoice"></i> Generate Bill
-                        </button>
-                    </div>
-
                     <div class="customer-id-display">
                         <h3>Customer ID</h3>
                         <div class="customer-id-value" id="customer-id">
@@ -140,7 +131,7 @@ import Layout from "../../layouts/Layout.astro";
                                     type="text"
                                     id="customer-name"
                                     class="form-control"
-                                    placeholder="Enter customer name"
+                                    placeholder="Enter full name"
                                     required
                                 />
                             </div>
@@ -156,59 +147,60 @@ import Layout from "../../layouts/Layout.astro";
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="customer-email">Email Address</label
-                                >
-                                <input
-                                    type="email"
-                                    id="customer-email"
-                                    class="form-control"
-                                    placeholder="Enter email address"
-                                />
-                            </div>
-                        </div>
-
                         <div class="bill-summary">
                             <h3>Bill Summary</h3>
-                            <div class="bill-item">
-                                <span>Food & Beverages:</span>
-                                <span
-                                    >₹<input
-                                        type="number"
-                                        id="food-beverages"
-                                        class="bill-input"
-                                        min="0"
-                                        step="0.01"
-                                        value="0.00"
-                                    /></span
+
+                            <!-- Menu Item Selection -->
+                            <div class="form-group">
+                                <label>Select Items</label>
+                                <div
+                                    id="menu-items-container"
+                                    class="menu-selection-grid"
                                 >
+                                    <!-- Items loaded via JS -->
+                                    <p class="text-muted">Loading menu...</p>
+                                </div>
+                            </div>
+
+                            <div class="bill-item">
+                                <span>Food & Beverages Total:</span>
+                                <div>
+                                    ₹ <span
+                                        id="food-total-display"
+                                        class="bill-display">0.00</span
+                                    >
+                                </div>
+                                <input
+                                    type="hidden"
+                                    id="food-beverages"
+                                    value="0"
+                                />
                             </div>
                             <div class="bill-item">
                                 <span>Other Services:</span>
-                                <span
-                                    >₹<input
+                                <div>
+                                    ₹ <input
                                         type="number"
                                         id="other-services"
                                         class="bill-input"
                                         min="0"
                                         step="0.01"
                                         value="0.00"
-                                    /></span
-                                >
+                                    />
+                                </div>
                             </div>
                             <div class="bill-item">
                                 <span>Tax:</span>
-                                <span
-                                    >₹<input
+                                <div>
+                                    ₹ <input
                                         type="number"
                                         id="tax"
                                         class="bill-input"
                                         min="0"
                                         step="0.01"
                                         value="0.00"
-                                    /></span
-                                >
+                                    />
+                                </div>
                             </div>
                             <div class="bill-total">
                                 <span>Total Amount:</span>
@@ -217,7 +209,7 @@ import Layout from "../../layouts/Layout.astro";
                         </div>
 
                         <div class="points-summary">
-                            <div>Points Earned (10 points/₹):</div>
+                            <div>Points Earned:</div>
                             <div class="points-value" id="points-earned">
                                 0 points
                             </div>
@@ -231,7 +223,7 @@ import Layout from "../../layouts/Layout.astro";
                                 class="btn btn-success"
                                 id="save-customer-btn"
                             >
-                                <i class="fas fa-save"></i> Save Customer
+                                <i class="fas fa-file-invoice"></i> Generate Bill
                             </button>
                             <button
                                 type="reset"
@@ -252,9 +244,6 @@ import Layout from "../../layouts/Layout.astro";
                         <h2>
                             <i class="fas fa-users"></i> Customer Management
                         </h2>
-                        <button class="btn btn-primary" id="export-data-btn">
-                            <i class="fas fa-download"></i> Export Data
-                        </button>
                     </div>
 
                     <table class="customer-table">
@@ -265,7 +254,6 @@ import Layout from "../../layouts/Layout.astro";
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Reward Points</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="customers-table-body">
@@ -315,7 +303,9 @@ import Layout from "../../layouts/Layout.astro";
                         <h2>
                             <i class="fas fa-sliders-h"></i> Program Configuration
                         </h2>
-                        <button class="btn btn-primary"
+                        <button
+                            class="btn btn-primary"
+                            id="save-loyalty-config-btn"
                             ><i class="fas fa-save"></i> Save Changes</button
                         >
                     </div>
@@ -388,9 +378,8 @@ import Layout from "../../layouts/Layout.astro";
                             <thead>
                                 <tr>
                                     <th>Spending Range (₹)</th>
-                                    <th>Points per ₹</th>
+                                    <th>Points</th>
                                     <th>Bonus Points</th>
-                                    <th style="text-align: right;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="range-table-body">
@@ -524,10 +513,11 @@ import Layout from "../../layouts/Layout.astro";
                         <h2>
                             <i class="fas fa-file-invoice-dollar"></i> Revenue Reports
                         </h2>
-                        <button class="btn btn-warning" id="export-report-btn">
-                            <i class="fas fa-download"></i> Export Report
-                        </button>
                     </div>
+
+                    <!-- Chart.js CDN -->
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"
+                    ></script>
 
                     <div
                         style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;"
@@ -580,13 +570,59 @@ import Layout from "../../layouts/Layout.astro";
                             </div>
                         </div>
                     </div>
+
+                    <!-- Spend Analyzer Chart -->
+                    <div
+                        style="margin-top: 30px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee;"
+                    >
+                        <h3
+                            style="color: #333; margin-bottom: 20px; font-size: 1.1rem; font-weight: bold;"
+                        >
+                            <i
+                                class="fas fa-chart-bar"
+                                style="color: var(--secondary); margin-right: 10px;"
+                            ></i>
+                            Monthly Spend Analysis
+                        </h3>
+                        <div
+                            style="position: relative; height: 400px; width: 100%;"
+                        >
+                            <canvas id="spendAnalyzerChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Top Moving Items Table -->
+                    <div
+                        style="margin-top: 30px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee;"
+                    >
+                        <h3
+                            style="color: #333; margin-bottom: 20px; font-size: 1.1rem; font-weight: bold;"
+                        >
+                            <i
+                                class="fas fa-fire"
+                                style="color: #e67e22; margin-right: 10px;"></i>
+                            Top Moving Items
+                        </h3>
+                        <table class="customer-table">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Total Revenue</th>
+                                    <th>Top Customer</th>
+                                </tr>
+                            </thead>
+                            <tbody id="top-moving-items-body">
+                                <!-- Dynamically populated -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </Layout>
 
-<style>
+<style is:global>
     /* Dashboard specific layout styles */
     .dashboard-wrapper {
         display: flex;
@@ -745,19 +781,21 @@ import Layout from "../../layouts/Layout.astro";
     }
 
     .btn {
-        padding: 10px 20px;
+        padding: 12px 28px;
         border: none;
-        border-radius: 4px;
+        border-radius: 50px; /* Modern Pill Shape */
         cursor: pointer;
-        font-weight: 500;
-        transition: all 0.3s;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-size: 1rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     }
     .btn i {
-        margin-right: 8px;
+        margin-right: 10px;
     }
     .btn-primary {
         background-color: var(--secondary);
@@ -863,6 +901,86 @@ import Layout from "../../layouts/Layout.astro";
         border-radius: 8px;
         margin-top: 20px;
     }
+    .menu-selection-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    .menu-item-select {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #edf2f7;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        transition: all 0.2s ease;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    .menu-item-select:hover {
+        border-color: var(--secondary);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(230, 126, 34, 0.1);
+    }
+    .item-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1; /* Pushes controls to the right */
+    }
+    .item-name {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 1.1rem;
+        text-transform: capitalize;
+        letter-spacing: 0.3px;
+    }
+    .item-price {
+        font-size: 0.95rem;
+        color: #64748b;
+        font-weight: 600;
+    }
+    .item-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: #f8fafc;
+        padding: 6px 14px;
+        border-radius: 25px;
+        border: 1px solid #e2e8f0;
+        margin-left: 20px; /* Space between text and controls */
+    }
+    .btn-qty {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: none;
+        background: white;
+        color: var(--primary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s;
+    }
+    .btn-qty:hover {
+        background: var(--secondary);
+        color: white;
+        transform: scale(1.1);
+    }
+    .qty-display {
+        font-weight: 800;
+        min-width: 24px;
+        text-align: center;
+        color: var(--secondary);
+        font-size: 1rem;
+    }
     .bill-summary h3 {
         color: var(--primary);
         margin-bottom: 15px;
@@ -882,13 +1000,26 @@ import Layout from "../../layouts/Layout.astro";
         border-top: 2px solid var(--primary);
         margin-top: 10px;
     }
-    .bill-input {
-        width: 80px;
-        display: inline;
-        padding: 5px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
+    .bill-input,
+    .bill-display {
+        width: 100px;
+        padding: 8px 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        background-color: #fff;
         text-align: right;
+        font-family: inherit;
+        font-weight: 600;
+        color: var(--primary);
+        transition: border-color 0.2s;
+    }
+    .bill-input:focus {
+        outline: none;
+        border-color: var(--secondary);
+        box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+    }
+    .bill-display {
+        display: inline-block;
     }
 
     .points-summary {
@@ -996,6 +1127,9 @@ import Layout from "../../layouts/Layout.astro";
         font-weight: 600;
         color: white;
     }
+    .badge-success {
+        background-color: #2ecc71;
+    }
     .badge-info {
         background-color: #3498db;
     }
@@ -1037,16 +1171,40 @@ import Layout from "../../layouts/Layout.astro";
         align-items: center;
     }
     .feedback-avatar {
-        width: 42px;
-        height: 42px;
-        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-        color: white;
-        border-radius: 12px;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.1rem;
-        box-shadow: 0 4px 10px rgba(230, 126, 34, 0.2);
+        font-size: 1.2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        flex-shrink: 0;
+    }
+    /* Light Pastel Avatar Colors */
+    .avatar-blue {
+        background: #e3f2fd !important;
+        color: #1e88e5 !important;
+    }
+    .avatar-green {
+        background: #e8f5e9 !important;
+        color: #43a047 !important;
+    }
+    .avatar-purple {
+        background: #f3e5f5 !important;
+        color: #8e24aa !important;
+    }
+    .avatar-orange {
+        background: #fff3e0 !important;
+        color: #f4511e !important;
+    }
+    .avatar-teal {
+        background: #e0f2f1 !important;
+        color: #00897b !important;
+    }
+    .avatar-indigo {
+        background: #e8eaf6 !important;
+        color: #3f51b5 !important;
     }
     .customer-info {
         display: flex;
@@ -1123,17 +1281,15 @@ import Layout from "../../layouts/Layout.astro";
         align-items: flex-start;
     }
     .feedback-avatar {
-        width: 45px;
-        height: 45px;
-        background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-        color: white;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.2rem;
         flex-shrink: 0;
-        box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     }
     .feedback-info {
         display: flex;
@@ -1174,9 +1330,30 @@ import Layout from "../../layouts/Layout.astro";
 
 <script>
     // Global Data
+    const hotelOwnerData = localStorage.getItem("hotelOwner");
+    const hotelOwner = hotelOwnerData ? JSON.parse(hotelOwnerData) : null;
+    const hotelId = hotelOwner?.id;
+
+    if (!hotelId) {
+        console.error("FATAL: No hotelId found in localStorage");
+        // Optional: Redirect to login or show error
+        // window.location.href = '/auth/hotel-owner-login';
+    }
+
     let customers = [];
     let feedbacks = [];
+    let menuItems = [];
+    let selectedItems = {}; // { itemId: { qty: number, price: number, name: string } }
 
+    // Loyalty Program Logic
+    let loyaltyRanges = JSON.parse(
+        localStorage.getItem("pointznest_ranges"),
+    ) || [
+        { min: 1, max: 100, points: 5, bonus: 0 },
+        { min: 101, max: 500, points: 20, bonus: 0 },
+        { min: 501, max: 1000, points: 50, bonus: 0 },
+        { min: 1001, max: null, points: 100, bonus: 0 },
+    ];
     // Navigation Elements
     const navItems = document.querySelectorAll(".nav-item");
     const pageContents = document.querySelectorAll(".page-content");
@@ -1184,7 +1361,7 @@ import Layout from "../../layouts/Layout.astro";
     const actionCards = document.querySelectorAll(".action-card");
 
     // Navigation Logic
-    function switchPage(pageId) {
+    function switchPage(pageId: string) {
         navItems.forEach((item) => {
             if (item.getAttribute("data-page") === pageId) {
                 item.classList.add("active");
@@ -1200,7 +1377,7 @@ import Layout from "../../layouts/Layout.astro";
 
                 const titleMap = {
                     dashboard: "Hotel Owner Dashboard",
-                    "add-customer": "Add New Customer",
+                    "add-customer": "Bill Generation",
                     "customer-management": "Customer Management",
                     "loyalty-program": "Loyalty Program",
                     "feedback-ratings": "Feedback & Ratings",
@@ -1210,6 +1387,10 @@ import Layout from "../../layouts/Layout.astro";
 
                 if (pageId === "customer-management") {
                     loadCustomers();
+                }
+
+                if (pageId === "revenue-reports") {
+                    loadRevenueReports();
                 }
             }
         });
@@ -1229,10 +1410,13 @@ import Layout from "../../layouts/Layout.astro";
         });
     });
 
-    // Bill Calculation Logic
-    const foodInput = document.getElementById(
+    // Updated Bill Calculation Logic
+    const foodTotalDisplay = document.getElementById("food-total-display");
+    const foodInputHidden = document.getElementById(
         "food-beverages",
-    ) as HTMLInputElement;
+    ) as HTMLInputElement; // Hidden input for compatibility
+
+    // Other inputs
     const servicesInput = document.getElementById(
         "other-services",
     ) as HTMLInputElement;
@@ -1242,22 +1426,128 @@ import Layout from "../../layouts/Layout.astro";
     let calculatedPoints = 0;
 
     function calculateTotal() {
-        if (!foodInput || !servicesInput || !taxInput) return;
+        let foodTotal = 0;
 
-        const food = parseFloat(foodInput.value) || 0;
-        const services = parseFloat(servicesInput.value) || 0;
-        const tax = parseFloat(taxInput.value) || 0;
+        // Calculate food total from selected items
+        Object.values(selectedItems).forEach((item: any) => {
+            foodTotal += item.qty * item.price;
+        });
 
-        const total = food + services + tax;
+        // Update food display
+        if (foodTotalDisplay)
+            foodTotalDisplay.textContent = `₹${foodTotal.toFixed(2)}`;
+        if (foodInputHidden) foodInputHidden.value = foodTotal.toString();
+
+        const services = parseFloat(servicesInput?.value) || 0;
+        const tax = parseFloat(taxInput?.value) || 0;
+
+        const total = foodTotal + services + tax;
         if (totalAmountSpan)
             totalAmountSpan.textContent = `₹${total.toFixed(2)}`;
 
-        calculatedPoints = Math.floor(total * 10);
+        // Calculate Points based on Ranges
+        let fixedPoints = 0;
+        let bonus = 0;
+
+        for (const range of loyaltyRanges) {
+            if (
+                total >= range.min &&
+                (range.max === null || total <= range.max)
+            ) {
+                fixedPoints = range.points;
+                bonus = range.bonus;
+                break;
+            }
+        }
+
+        calculatedPoints = fixedPoints + bonus;
         if (pointsEarnedDiv)
             pointsEarnedDiv.textContent = `${calculatedPoints} points`;
     }
 
-    [foodInput, servicesInput, taxInput].forEach((input) => {
+    // Load Menu Items
+    async function loadMenuItems() {
+        if (!hotelId) return;
+        const container = document.getElementById("menu-items-container");
+        if (!container) return;
+
+        try {
+            const res = await fetch(
+                `http://localhost:7000/api/menu/${hotelId}`,
+            );
+            if (res.ok) {
+                menuItems = await res.json();
+                renderMenuSelection();
+            } else {
+                container.innerHTML =
+                    '<p class="text-danger">Failed to load menu.</p>';
+            }
+        } catch (error) {
+            console.error("Error loading menu:", error);
+            container.innerHTML =
+                '<p class="text-danger">Error loading menu.</p>';
+        }
+    }
+
+    function renderMenuSelection() {
+        const container = document.getElementById("menu-items-container");
+        if (!container) return;
+        container.innerHTML = "";
+
+        if (menuItems.length === 0) {
+            container.innerHTML =
+                '<p>No menu items found. Please add items in "View Menu".</p>';
+            return;
+        }
+
+        menuItems.forEach((item: any) => {
+            const itemDiv = document.createElement("div");
+            itemDiv.className = "menu-item-select";
+            itemDiv.innerHTML = `
+                <div class="item-info">
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-price">₹${item.price}</span>
+                </div>
+                <div class="item-controls">
+                    <button type="button" class="btn-qty minus" data-id="${item._id}">-</button>
+                    <span class="qty-display" id="qty-${item._id}">0</span>
+                    <button type="button" class="btn-qty plus" data-id="${item._id}">+</button>
+                </div>
+            `;
+            container.appendChild(itemDiv);
+
+            // Add event listeners for this item
+            const minusBtn = itemDiv.querySelector(".minus");
+            const plusBtn = itemDiv.querySelector(".plus");
+
+            minusBtn?.addEventListener("click", () => updateItemQty(item, -1));
+            plusBtn?.addEventListener("click", () => updateItemQty(item, 1));
+        });
+    }
+
+    function updateItemQty(item, change) {
+        if (!selectedItems[item._id]) {
+            selectedItems[item._id] = {
+                qty: 0,
+                price: item.price,
+                name: item.name,
+            };
+        }
+
+        selectedItems[item._id].qty += change;
+        if (selectedItems[item._id].qty < 0) selectedItems[item._id].qty = 0;
+
+        // Update UI
+        const qtyDisplay = document.getElementById(`qty-${item._id}`);
+        if (qtyDisplay) qtyDisplay.textContent = selectedItems[item._id].qty;
+
+        calculateTotal();
+    }
+
+    // Initialize
+    loadMenuItems();
+
+    [servicesInput, taxInput].forEach((input) => {
         if (input) input.addEventListener("input", calculateTotal);
     });
 
@@ -1273,18 +1563,16 @@ import Layout from "../../layouts/Layout.astro";
             const phone = (
                 document.getElementById("customer-phone") as HTMLInputElement
             ).value;
-            const email = (
-                document.getElementById("customer-email") as HTMLInputElement
-            ).value;
+            const email = undefined;
 
-            // Get bill details directly from inputs
+            // Get bill details
             const foodVal =
                 parseFloat(
                     (
                         document.getElementById(
                             "food-beverages",
                         ) as HTMLInputElement
-                    ).value,
+                    )?.value,
                 ) || 0;
             const servicesVal =
                 parseFloat(
@@ -1292,18 +1580,21 @@ import Layout from "../../layouts/Layout.astro";
                         document.getElementById(
                             "other-services",
                         ) as HTMLInputElement
-                    ).value,
+                    )?.value,
                 ) || 0;
             const taxVal =
                 parseFloat(
-                    (document.getElementById("tax") as HTMLInputElement).value,
+                    (document.getElementById("tax") as HTMLInputElement)?.value,
                 ) || 0;
-            const totalVal = foodVal + servicesVal + taxVal;
+
+            const totalText =
+                document.getElementById("total-amount")?.textContent || "0";
+            const totalVal = parseFloat(totalText.replace("₹", ""));
 
             try {
                 // 1. Create Customer
                 const response = await fetch(
-                    "http://localhost:3000/api/customer/add",
+                    "http://localhost:7000/api/customer/add",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -1311,7 +1602,6 @@ import Layout from "../../layouts/Layout.astro";
                             name,
                             email,
                             phone,
-                            points: calculatedPoints,
                         }),
                     },
                 );
@@ -1320,15 +1610,32 @@ import Layout from "../../layouts/Layout.astro";
 
                 if (response.ok) {
                     // 2. If Customer created, generate Bill
-                    const customerId = result.customer.customer_id; // Assuming backend returns the full customer object or at least id
+                    const customerId = result.customer?.customer_id;
+
+                    if (!customerId) {
+                        throw new Error(
+                            "Backend failed to provide a valid Customer ID",
+                        );
+                    }
+
+                    // Format ordered items for backend
+                    const ordered_items = Object.keys(selectedItems)
+                        .filter((key) => selectedItems[key].qty > 0)
+                        .map((key) => ({
+                            menu_item_id: key,
+                            menu_item_name: selectedItems[key].name,
+                            quantity: selectedItems[key].qty,
+                            price: selectedItems[key].price,
+                        }));
 
                     const billResponse = await fetch(
-                        "http://localhost:3000/api/bill/create",
+                        "http://localhost:7000/api/bill/create",
                         {
                             method: "POST",
                             headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
                                 customer_id: customerId,
+                                hotel_id: hotelId,
                                 bill_details: {
                                     food: foodVal,
                                     services: servicesVal,
@@ -1336,6 +1643,7 @@ import Layout from "../../layouts/Layout.astro";
                                     total: totalVal,
                                 },
                                 points_earned: calculatedPoints,
+                                ordered_items: ordered_items,
                             }),
                         },
                     );
@@ -1382,9 +1690,26 @@ import Layout from "../../layouts/Layout.astro";
 
             if (tableBody) {
                 if (Array.isArray(customers) && customers.length > 0) {
+                    // Deduplicate customers by phone number for the view
+                    const uniqueCustomersMap = new Map();
+                    customers.forEach((c) => {
+                        const phone = c.phone;
+                        if (!uniqueCustomersMap.has(phone)) {
+                            uniqueCustomersMap.set(phone, { ...c });
+                        } else {
+                            // Merge points if duplicates exist in DB
+                            const existing = uniqueCustomersMap.get(phone);
+                            existing.points =
+                                (existing.points || 0) + (c.points || 0);
+                        }
+                    });
+                    const uniqueCustomers = Array.from(
+                        uniqueCustomersMap.values(),
+                    );
+
                     if (emptyState) emptyState.style.display = "none";
                     tableBody.innerHTML = "";
-                    customers.forEach((customer) => {
+                    uniqueCustomers.forEach((customer) => {
                         const row = document.createElement("tr");
                         const displayId =
                             customer.customer_id ||
@@ -1394,17 +1719,15 @@ import Layout from "../../layouts/Layout.astro";
                         row.innerHTML = `
                             <td>#${displayId}</td>
                             <td>${customer.username}</td>
-                            <td>${customer.email}</td>
+                            <td>${customer.email || "-"}</td>
                             <td>${customer.phone}</td>
-                            <td><span class="badge badge-success">${customer.points || 0} pts</span></td>
-                            <td>
-                                <button class="btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                            </td>
+                            <td style="color: #000; font-weight: 500;">${customer.points || 0} pts</td>
                         `;
                         tableBody.appendChild(row);
                     });
                     if (countDisplay)
-                        countDisplay.textContent = customers.length.toString();
+                        countDisplay.textContent =
+                            uniqueCustomers.length.toString();
                 } else {
                     tableBody.innerHTML = "";
                     if (emptyState) emptyState.style.display = "block";
@@ -1464,9 +1787,20 @@ import Layout from "../../layouts/Layout.astro";
         if (noFeedbackMsg) noFeedbackMsg.style.display = "none";
         container.innerHTML = "";
 
-        filteredFeedbacks.forEach((feedback) => {
+        const avatarClasses = [
+            "avatar-blue",
+            "avatar-green",
+            "avatar-purple",
+            "avatar-orange",
+            "avatar-teal",
+            "avatar-indigo",
+        ];
+
+        filteredFeedbacks.forEach((feedback, index) => {
             const feedbackItem = document.createElement("div");
             feedbackItem.className = "feedback-item";
+
+            const avatarClass = avatarClasses[index % avatarClasses.length];
 
             let starsHtml = "";
             const score = parseFloat(feedback.rating) || 0;
@@ -1498,7 +1832,9 @@ import Layout from "../../layouts/Layout.astro";
             feedbackItem.innerHTML = `
                 <div class="card-header">
                     <div class="customer-profile">
-                        <div class="feedback-avatar"><i class="fas fa-user"></i></div>
+                        <div class="feedback-avatar ${avatarClass}">
+                            <i class="fas fa-user"></i>
+                        </div>
                         <div class="customer-info">
                             <span class="feedback-name">${feedback.customerName || "Anonymous"}</span>
                             <span class="feedback-date">${dateStr}</span>
@@ -1525,7 +1861,7 @@ import Layout from "../../layouts/Layout.astro";
             customers.forEach((c) => {
                 const option = document.createElement("option");
                 option.value = c.id;
-                option.textContent = `${c.username} (${c.email})`;
+                option.textContent = `${c.username} (${c.email || "-"})`;
                 select.appendChild(option);
             });
         }
@@ -1631,14 +1967,6 @@ import Layout from "../../layouts/Layout.astro";
         feedbackFilter.addEventListener("change", renderFeedbacks);
     }
 
-    // Loyalty Program Logic
-    let loyaltyRanges = [
-        { min: 0, max: 100, pointsPerDollar: 10, bonus: 0 },
-        { min: 101, max: 500, pointsPerDollar: 12, bonus: 50 },
-        { min: 501, max: 1000, pointsPerDollar: 15, bonus: 100 },
-        { min: 1001, max: null, pointsPerDollar: 20, bonus: 200 },
-    ];
-
     function renderLoyaltyRanges() {
         const tableBody = document.getElementById("range-table-body");
         if (!tableBody) return;
@@ -1656,15 +1984,10 @@ import Layout from "../../layouts/Layout.astro";
                 </div>
             </td>
             <td>
-                <input type="number" class="form-control range-input points-input" value="${range.pointsPerDollar}" min="1" placeholder="Pts" data-index="${index}" style="width: 80px; padding: 5px;">
+                <input type="number" class="form-control points-input" data-index="${index}" value="${range.points}" placeholder="Points">
             </td>
             <td>
                 <input type="number" class="form-control range-input bonus-input" value="${range.bonus}" min="0" placeholder="Bonus" data-index="${index}" style="width: 80px; padding: 5px;">
-            </td>
-            <td style="text-align: right;">
-                <button class="btn-icon delete" onclick="removeRange(${index})" title="Remove Range">
-                    <i class="fas fa-trash"></i>
-                </button>
             </td>
         `;
             tableBody.appendChild(row);
@@ -1720,7 +2043,7 @@ import Layout from "../../layouts/Layout.astro";
 
                 const min = parseFloat(minInput.value) || 0;
                 const max = maxInput.value ? parseFloat(maxInput.value) : null;
-                const pointsPerDollar = parseFloat(pointsInput.value) || 10;
+                const points = parseFloat(pointsInput.value) || 0;
                 const bonus = parseFloat(bonusInput.value) || 0;
 
                 if (max !== null && max <= min) {
@@ -1731,14 +2054,82 @@ import Layout from "../../layouts/Layout.astro";
                     break;
                 }
 
-                newRanges.push({ min, max, pointsPerDollar, bonus });
+                newRanges.push({ min, max, points, bonus });
             }
 
             if (isValid) {
                 loyaltyRanges = newRanges;
+                localStorage.setItem(
+                    "pointznest_ranges",
+                    JSON.stringify(loyaltyRanges),
+                );
                 alert("Loyalty program ranges applied successfully!");
+                calculateTotal(); // Update points on currently open bill
             }
         });
+    }
+
+    // Save Program Configuration
+    const saveLoyaltyConfigBtn = document.getElementById(
+        "save-loyalty-config-btn",
+    );
+    if (saveLoyaltyConfigBtn) {
+        saveLoyaltyConfigBtn.addEventListener("click", () => {
+            const config = {
+                programName: (
+                    document.getElementById("program-name") as HTMLInputElement
+                ).value,
+                status: (
+                    document.getElementById(
+                        "program-status",
+                    ) as HTMLSelectElement
+                ).value,
+                welcomeBonus:
+                    parseFloat(
+                        (
+                            document.getElementById(
+                                "welcome-bonus",
+                            ) as HTMLInputElement
+                        ).value,
+                    ) || 0,
+                expiry:
+                    parseFloat(
+                        (
+                            document.getElementById(
+                                "points-expiry",
+                            ) as HTMLInputElement
+                        ).value,
+                    ) || 0,
+            };
+            localStorage.setItem(
+                "pointznest_loyalty_config",
+                JSON.stringify(config),
+            );
+            alert("Program configuration saved!");
+        });
+    }
+
+    // Load initial config
+    const savedConfig = localStorage.getItem("pointznest_loyalty_config");
+    if (savedConfig) {
+        const config = JSON.parse(savedConfig);
+        const nameInput = document.getElementById(
+            "program-name",
+        ) as HTMLInputElement;
+        const statusSelect = document.getElementById(
+            "program-status",
+        ) as HTMLSelectElement;
+        const bonusInput = document.getElementById(
+            "welcome-bonus",
+        ) as HTMLInputElement;
+        const expiryInput = document.getElementById(
+            "points-expiry",
+        ) as HTMLInputElement;
+
+        if (nameInput) nameInput.value = config.programName;
+        if (statusSelect) statusSelect.value = config.status;
+        if (bonusInput) bonusInput.value = config.welcomeBonus;
+        if (expiryInput) expiryInput.value = config.expiry;
     }
 
     const resetRangesBtn = document.getElementById("reset-ranges-btn");
@@ -1746,12 +2137,17 @@ import Layout from "../../layouts/Layout.astro";
         resetRangesBtn.addEventListener("click", () => {
             if (confirm("Reset ranges to default?")) {
                 loyaltyRanges = [
-                    { min: 0, max: 100, pointsPerDollar: 10, bonus: 0 },
-                    { min: 101, max: 500, pointsPerDollar: 12, bonus: 50 },
-                    { min: 501, max: 1000, pointsPerDollar: 15, bonus: 100 },
-                    { min: 1001, max: null, pointsPerDollar: 20, bonus: 200 },
+                    { min: 1, max: 100, points: 5, bonus: 0 },
+                    { min: 101, max: 500, points: 20, bonus: 0 },
+                    { min: 501, max: 1000, points: 50, bonus: 0 },
+                    { min: 1001, max: null, points: 100, bonus: 0 },
                 ];
+                localStorage.setItem(
+                    "pointznest_ranges",
+                    JSON.stringify(loyaltyRanges),
+                );
                 renderLoyaltyRanges();
+                calculateTotal(); // Update currently opened bill if any
             }
         });
     }
@@ -1760,13 +2156,167 @@ import Layout from "../../layouts/Layout.astro";
     loadCustomers();
     loadFeedbacks();
     renderLoyaltyRanges();
-    loadFeedbacks();
-    renderLoyaltyRanges();
     updateFeedbackStats();
     loadRevenueReports();
 
-    function loadRevenueReports() {
-        console.log("Loading revenue reports placeholder");
+    async function loadRevenueReports() {
+        const ctx = document.getElementById(
+            "spendAnalyzerChart",
+        ) as HTMLCanvasElement;
+        if (!ctx) return;
+
+        try {
+            // Process data for Chart (Dynamic Menu Data)
+            let labels = ["No Items", "No Items", "No Items"];
+            let values = [0, 0, 0];
+            let topCustomers = ["Arjun", "Priya", "Rahul", "Deepak", "Sneha"];
+
+            if (customers && customers.length > 0) {
+                topCustomers = customers.map((c: any) => c.username || c.name);
+            }
+
+            if (menuItems && menuItems.length > 0) {
+                // Use actual menu items
+                labels = menuItems.slice(0, 5).map((item: any) => item.name);
+                // Assign realistic static revenue values for the trial
+                values = labels.map((_, i) => 15000 - i * 2000);
+            }
+
+            // Update Top Moving Items Table Dynamically
+            const tableBody = document.getElementById("top-moving-items-body");
+            if (tableBody) {
+                tableBody.innerHTML = "";
+                labels.forEach((name, i) => {
+                    if (name === "No Items") return;
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${name}</td>
+                        <td>₹${values[i].toLocaleString()}</td>
+                        <td><span class="badge badge-info">${topCustomers[i % topCustomers.length]}</span></td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // Update Summary Cards with Static Trial Data
+            const totalRevenue = values.reduce((a, b) => a + b, 0);
+            const monthlyRevenueEl = document.getElementById("monthly-revenue");
+            if (monthlyRevenueEl)
+                monthlyRevenueEl.textContent = `₹${totalRevenue.toLocaleString()}`;
+
+            const loyaltyImpactEl = document.getElementById("loyalty-impact");
+            if (loyaltyImpactEl) loyaltyImpactEl.textContent = "65%";
+
+            const revenueGrowthEl = document.getElementById("revenue-growth");
+            if (revenueGrowthEl) revenueGrowthEl.textContent = "+12%";
+
+            // Destroy existing chart if any
+            if ((window as any).spendChart) {
+                (window as any).spendChart.destroy();
+            }
+
+            // Custom Colors (Blue, Dark Blue, Green, Purple, Orange, Red, Yellow)
+            const backgroundColors = [
+                "rgba(54, 162, 235, 0.8)",
+                "rgba(26, 35, 126, 0.8)",
+                "rgba(75, 192, 192, 0.8)",
+                "rgba(153, 102, 255, 0.8)",
+                "rgba(255, 159, 64, 0.8)",
+                "rgba(255, 99, 132, 0.8)",
+                "rgba(255, 205, 86, 0.8)",
+            ];
+
+            const borderColors = [
+                "rgba(54, 162, 235, 1)",
+                "rgba(26, 35, 126, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+                "rgba(255, 99, 132, 1)",
+                "rgba(255, 205, 86, 1)",
+            ];
+
+            // Render Chart
+            // @ts-ignore
+            (window as any).spendChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Revenue",
+                            data: values,
+                            backgroundColor: backgroundColors,
+                            borderColor: borderColors,
+                            borderWidth: 1,
+                            barPercentage: 0.6,
+                            categoryPercentage: 0.8,
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context: any) {
+                                    return `Revenue: ₹${context.raw}`;
+                                },
+                            },
+                        },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                display: false,
+                                drawBorder: true,
+                            },
+                            title: {
+                                display: true,
+                                text: "Revenue (₹)",
+                                font: {
+                                    weight: "bold",
+                                    size: 14,
+                                },
+                                color: "#333",
+                            },
+                            ticks: {
+                                font: {
+                                    weight: "bold",
+                                },
+                            },
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: true,
+                            },
+                            title: {
+                                display: true,
+                                text: "Menu Items",
+                                font: {
+                                    weight: "bold",
+                                    size: 14,
+                                },
+                                color: "#333",
+                            },
+                            ticks: {
+                                font: {
+                                    weight: "bold",
+                                },
+                            },
+                        },
+                    },
+                },
+            });
+        } catch (err) {
+            console.error("Error loading spend analyzer:", err);
+        }
     }
 
     function updateFeedbackStats() {

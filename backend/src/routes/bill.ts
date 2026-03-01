@@ -6,9 +6,12 @@ const router = express.Router();
 // POST /api/bill/create
 router.post('/create', async (req: Request, res: Response): Promise<void> => {
     try {
-        const { customer_id, hotel_id, bill_details, points_earned } = req.body;
+        const { customer_id, hotel_id, bill_details, points_earned, ordered_items } = req.body;
+
+        console.log(`[Bill] Creating bill for customer_id: ${customer_id}`);
 
         if (!customer_id || !bill_details) {
+            console.error('[Bill] Missing required fields:', { customer_id: !!customer_id, bill_details: !!bill_details });
             res.status(400).json({ error: 'Missing required fields: customer_id or bill_details' });
             return;
         }
@@ -72,7 +75,8 @@ router.post('/create', async (req: Request, res: Response): Promise<void> => {
                 services: services || 0,
                 tax: tax || 0,
                 total: total || 0
-            }
+            },
+            ordered_items: ordered_items || []
         });
 
         await visit.save();

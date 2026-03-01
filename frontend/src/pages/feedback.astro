@@ -300,7 +300,7 @@ import Layout from "../layouts/Layout.astro";
     // Fetch hotels on load
     async function fetchHotels() {
         try {
-            const response = await fetch("http://localhost:3000/api/hotels");
+            const response = await fetch("http://localhost:7000/api/hotels");
             const hotels = await response.json();
 
             if (hotelSelect) {
@@ -402,7 +402,7 @@ import Layout from "../layouts/Layout.astro";
             try {
                 // Submit to backend
                 const response = await fetch(
-                    "http://localhost:3000/api/feedback/add",
+                    "http://localhost:7000/api/feedback/add",
                     {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },

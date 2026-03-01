@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         :root {
             --primary: #2c3e50;
@@ -214,19 +215,23 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 12px 28px;
             border: none;
-            border-radius: 4px;
+            border-radius: 50px;
+            /* Modern Pill Shape */
             cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
         .btn i {
-            margin-right: 8px;
+            margin-right: 10px;
         }
 
         .btn-primary {
@@ -397,13 +402,25 @@
             margin-top: 10px;
         }
 
-        .bill-input {
-            width: 80px;
-            display: inline;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        .bill-input,
+        .bill-display {
+            width: 100px;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background-color: #fff;
             text-align: right;
+            font-family: inherit;
+            font-weight: 600;
+            color: #2c3e50;
+            transition: border-color 0.2s;
+            display: inline-block;
+        }
+
+        .bill-input:focus {
+            outline: none;
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
         }
 
         .points-summary {
@@ -503,15 +520,45 @@
         }
 
         .feedback-avatar {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .avatar-blue {
+            background: #e3f2fd !important;
+            color: #1e88e5 !important;
+        }
+
+        .avatar-green {
+            background: #e8f5e9 !important;
+            color: #43a047 !important;
+        }
+
+        .avatar-purple {
+            background: #f3e5f5 !important;
+            color: #8e24aa !important;
+        }
+
+        .avatar-orange {
+            background: #fff3e0 !important;
+            color: #f4511e !important;
+        }
+
+        .avatar-teal {
+            background: #e0f2f1 !important;
+            color: #00897b !important;
+        }
+
+        .avatar-indigo {
+            background: #e8eaf6 !important;
+            color: #3f51b5 !important;
         }
 
         .feedback-info {
@@ -623,8 +670,8 @@
                     <span>Dashboard</span>
                 </li>
                 <li class="nav-item" data-page="add-customer">
-                    <i class="fas fa-user-plus"></i>
-                    <span>Add Customer</span>
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Bill Generation</span>
                 </li>
                 <li class="nav-item" data-page="customer-management">
                     <i class="fas fa-users"></i>
@@ -682,9 +729,9 @@
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                         <div class="stat-card" data-page="add-customer">
-                            <i class="fas fa-user-plus"></i>
-                            <h3>Add</h3>
-                            <p>New Customer</p>
+                            <i class="fas fa-file-invoice"></i>
+                            <h3>Generate</h3>
+                            <p>Bill</p>
                         </div>
                         <div class="stat-card" data-page="customer-management">
                             <i class="fas fa-eye"></i>
@@ -708,13 +755,6 @@
             <!-- Add Customer Page -->
             <div id="add-customer-page" class="page-content">
                 <div class="dashboard-section">
-                    <div class="section-header">
-                        <h2><i class="fas fa-user-plus"></i> Add New Customer</h2>
-                        <button class="btn btn-primary" id="generate-bill-btn">
-                            <i class="fas fa-file-invoice"></i> Generate Bill
-                        </button>
-                    </div>
-
                     <div class="customer-id-display">
                         <h3>Customer ID</h3>
                         <div class="customer-id-value" id="customer-id">PN-2025-3054</div>
@@ -734,30 +774,24 @@
                             </div>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="customer-email">Email Address</label>
-                                <input type="email" id="customer-email" class="form-control"
-                                    placeholder="Enter email address">
-                            </div>
-                        </div>
+
 
                         <div class="bill-summary">
                             <h3>Bill Summary</h3>
                             <div class="bill-item">
                                 <span>Food & Beverages:</span>
-                                <span>$<input type="number" id="food-beverages" class="bill-input" min="0" step="0.01"
-                                        value="0.00"></span>
+                                <div>₹ <span id="food-total-display" class="bill-display">0.00</span></div>
+                                <input type="hidden" id="food-beverages" value="0.00">
                             </div>
                             <div class="bill-item">
                                 <span>Other Services:</span>
-                                <span>$<input type="number" id="other-services" class="bill-input" min="0" step="0.01"
-                                        value="0.00"></span>
+                                <div>₹ <input type="number" id="other-services" class="bill-input" min="0" step="0.01"
+                                        value="0.00"></div>
                             </div>
                             <div class="bill-item">
                                 <span>Tax:</span>
-                                <span>$<input type="number" id="tax" class="bill-input" min="0" step="0.01"
-                                        value="0.00"></span>
+                                <div>₹ <input type="number" id="tax" class="bill-input" min="0" step="0.01"
+                                        value="0.00"></div>
                             </div>
                             <div class="bill-total">
                                 <span>Total Amount:</span>
@@ -1007,12 +1041,45 @@
                                 <h3 style="margin-bottom: 15px;">Loyalty Program Impact</h3>
                                 <div style="font-size: 2rem; font-weight: bold; color: var(--primary); text-align: center;"
                                     id="loyalty-impact">
-                                    0%
+                                    65%
                                 </div>
                                 <div style="text-align: center; color: var(--success); margin-top: 10px;">
                                     of revenue from loyalty members
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Spend Analyzer Chart -->
+                        <div
+                            style="margin-top: 30px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+                            <h3 style="color: #333; margin-bottom: 20px; font-size: 1.1rem; font-weight: bold;">
+                                <i class="fas fa-chart-bar" style="color: var(--secondary); margin-right: 10px;"></i>
+                                Monthly Spend Analysis
+                            </h3>
+                            <div style="position: relative; height: 350px; width: 100%;">
+                                <canvas id="spendAnalyzerChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Top Moving Items -->
+                        <div
+                            style="margin-top: 30px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+                            <h3 style="color: #333; margin-bottom: 20px; font-size: 1.1rem; font-weight: bold;">
+                                <i class="fas fa-fire" style="color: #e67e22; margin-right: 10px;"></i>
+                                Top Moving Items
+                            </h3>
+                            <table class="customer-table">
+                                <thead>
+                                    <tr>
+                                        <th>Item Name</th>
+                                        <th>Total Revenue</th>
+                                        <th>Top Customer</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="top-moving-items-body">
+                                    <!-- Dynamically populated -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -1023,11 +1090,13 @@
             // Data Storage
             let customers = [];
             let feedbacks = [];
+            let menuItems = [];
+            const hotelId = localStorage.getItem('pointznest_hotel_id') || '67727c95e1c4e7232ff4bc28'; // Fallback for demo
             let loyaltyRanges = JSON.parse(localStorage.getItem('pointznest_ranges')) || [
-                { min: 0, max: 100, pointsPerDollar: 10, bonus: 0 },
-                { min: 101, max: 500, pointsPerDollar: 12, bonus: 50 },
-                { min: 501, max: 1000, pointsPerDollar: 15, bonus: 100 },
-                { min: 1001, max: null, pointsPerDollar: 20, bonus: 200 }
+                { min: 0, max: 100, pointsPerDollar: 0, bonus: 0 },
+                { min: 101, max: 500, pointsPerDollar: 1, bonus: 0 },
+                { min: 501, max: 1000, pointsPerDollar: 2, bonus: 0 },
+                { min: 1001, max: null, pointsPerDollar: 3, bonus: 0 }
             ];
             let revenueData = JSON.parse(localStorage.getItem('pointznest_revenue')) || {
                 monthly: 0,
@@ -1056,6 +1125,18 @@
                     renderFeedbacks();
                 } catch (err) {
                     console.error('Error fetching feedbacks:', err);
+                }
+            }
+
+            async function loadMenuItems() {
+                if (!hotelId) return;
+                try {
+                    const res = await fetch(`http://localhost:7000/api/menu/${hotelId}`);
+                    if (res.ok) {
+                        menuItems = await res.json();
+                    }
+                } catch (error) {
+                    console.error("Error loading menu:", error);
                 }
             }
 
@@ -1187,9 +1268,13 @@
                 noFeedbackMsg.style.display = 'none';
                 container.innerHTML = '';
 
-                filteredFeedbacks.forEach(feedback => {
+                const avatarClasses = ['avatar-blue', 'avatar-green', 'avatar-purple', 'avatar-orange', 'avatar-teal', 'avatar-indigo'];
+
+                filteredFeedbacks.forEach((feedback, index) => {
                     const feedbackItem = document.createElement('div');
                     feedbackItem.className = 'feedback-item';
+
+                    const avatarClass = avatarClasses[index % avatarClasses.length];
 
                     let starsHtml = '';
                     const fullStars = Math.floor(feedback.rating);
@@ -1212,10 +1297,10 @@
 
                     feedbackItem.innerHTML = `
                     <div class="feedback-customer">
-                        <div class="feedback-avatar">${(feedback.customerName || 'A').charAt(0)}</div>
+                        <div class="feedback-avatar ${avatarClass}">${(feedback.customerName || 'A').charAt(0)}</div>
                         <div class="feedback-info">
                             <div class="feedback-name">${feedback.customerName || 'Anonymous'}</div>
-                            <div class="feedback-comment">${feedback.comment}</div>
+                            <div class="feedback-comment">"${feedback.comment}"</div>
                             <div style="font-size: 0.8rem; color: #999; margin-top: 2px;">${dateStr}</div>
                         </div>
                     </div>
@@ -1414,10 +1499,10 @@
             function resetRanges() {
                 if (confirm('Are you sure you want to reset all ranges to default values?')) {
                     loyaltyRanges = [
-                        { min: 0, max: 100, pointsPerDollar: 10, bonus: 0 },
-                        { min: 101, max: 500, pointsPerDollar: 12, bonus: 50 },
-                        { min: 501, max: 1000, pointsPerDollar: 15, bonus: 100 },
-                        { min: 1001, max: null, pointsPerDollar: 20, bonus: 200 }
+                        { min: 0, max: 100, pointsPerDollar: 0, bonus: 0 },
+                        { min: 101, max: 500, pointsPerDollar: 1, bonus: 0 },
+                        { min: 501, max: 1000, pointsPerDollar: 2, bonus: 0 },
+                        { min: 1001, max: null, pointsPerDollar: 3, bonus: 0 }
                     ];
                     renderLoyaltyRanges();
                     saveRanges();
@@ -1444,6 +1529,10 @@
                     const pageTitle = item.querySelector('span').textContent;
                     document.getElementById('page-title').textContent = pageTitle;
 
+                    if (pageId === 'revenue-reports') {
+                        setTimeout(loadRevenueReports, 100);
+                    }
+
                     // Generate new customer ID when Add Customer page is opened
                     if (pageId === 'add-customer') {
                         generateCustomerId();
@@ -1469,6 +1558,10 @@
                         // Update page title
                         const pageTitle = document.querySelector('.nav-item[data-page="' + page + '"] span').textContent;
                         document.getElementById('page-title').textContent = pageTitle;
+
+                        if (page === 'revenue-reports') {
+                            setTimeout(loadRevenueReports, 100);
+                        }
 
                         // Generate new customer ID when Add Customer page is opened
                         if (page === 'add-customer') {
@@ -1659,6 +1752,7 @@
             function initializeApp() {
                 loadCustomers();
                 loadFeedbacks();
+                loadMenuItems();
                 renderLoyaltyRanges();
                 generateCustomerId();
             }
@@ -1673,6 +1767,104 @@
                         setTimeout(() => navItem.click(), 100);
                     }
                 }
+            }
+
+            function loadRevenueReports() {
+                const ctx = document.getElementById('spendAnalyzerChart');
+                if (!ctx) return;
+
+                let labels = ["No Items", "No Items", "No Items"];
+                let values = [0, 0, 0];
+                let topCustomers = ["Arjun", "Priya", "Rahul", "Deepak", "Sneha"];
+
+                if (customers && customers.length > 0) {
+                    topCustomers = customers.map(c => c.username || c.name);
+                }
+
+                if (menuItems && menuItems.length > 0) {
+                    labels = menuItems.slice(0, 5).map(item => item.name);
+                    values = labels.map((_, i) => 15000 - i * 2000); // Placeholder revenue values
+                }
+
+                // Update Table
+                const tableBody = document.getElementById('top-moving-items-body');
+                if (tableBody) {
+                    tableBody.innerHTML = "";
+                    labels.forEach((name, i) => {
+                        if (name === "No Items") return;
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${name}</td>
+                            <td>₹${values[i].toLocaleString()}</td>
+                            <td><span class="points-badge" style="background: var(--accent);">${topCustomers[i % topCustomers.length]}</span></td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                }
+
+                const totalRevenue = values.reduce((a, b) => a + b, 0);
+                document.getElementById('monthly-revenue').textContent = `₹${totalRevenue.toLocaleString()}`;
+                document.getElementById('revenue-change').textContent = '12%';
+
+                if (window.spendChart) {
+                    window.spendChart.destroy();
+                }
+
+                const backgroundColors = [
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(26, 35, 126, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ];
+
+                const borderColors = [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(26, 35, 126, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ];
+
+                window.spendChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Revenue',
+                            data: values,
+                            backgroundColor: backgroundColors,
+                            borderColor: borderColors,
+                            borderWidth: 1,
+                            barPercentage: 0.6,
+                            categoryPercentage: 0.8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return `Revenue: ₹${context.raw}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Revenue (₹)',
+                                    font: { weight: 'bold' }
+                                }
+                            }
+                        }
+                    }
+                });
             }
 
             // Initialize when page loads

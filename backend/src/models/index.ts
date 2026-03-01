@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface ICustomer extends Document {
     customer_id: string;
     username: string;
-    email: string;
+    email?: string;
     phone: string;
     password?: string;
     points: number;
@@ -13,7 +13,7 @@ export interface ICustomer extends Document {
 const CustomerSchema: Schema = new Schema({
     customer_id: { type: String, unique: true, sparse: true, default: null },
     username: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: false, unique: true, sparse: true },
     phone: { type: String, required: true },
     password: { type: String, required: true },
     points: { type: Number, default: 0 },
